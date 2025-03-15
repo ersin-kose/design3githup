@@ -126,7 +126,7 @@ const HomeScreen = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
 
   const screenHeight = Dimensions.get('window').height;
-  const imageHeight = screenHeight * 0.6;
+  const imageHeight = screenHeight * 0.7;
 
   // Menü için state
   const [menuVisible, setMenuVisible] = useState(false);
@@ -278,10 +278,9 @@ const HomeScreen = () => {
         // Klavye yüksekliğini alıyoruz
         const keyboardHeight = e.endCoordinates.height;
         
-        // Klavyenin hemen üstünde küçük bir boşlukla konumlandırıyoruz
-        // 10 değeri, klavyeyle arasındaki boşluğu belirtiyor (Daha küçük bir değer)
+        // Klavyenin daha yukarısında konumlandırıyoruz
         Animated.timing(textInputPosition, {
-          toValue: -(keyboardHeight - 60), // Biraz daha az yukarı çekmek için değer arttırıldı
+          toValue: -(keyboardHeight - 20), // 60'tan 20'ye düşürerek daha yukarı çıkmasını sağlıyoruz
           duration: 250,
           useNativeDriver: true
         }).start();
@@ -357,6 +356,17 @@ const HomeScreen = () => {
               >
                 <IconButton icon="account-circle" size={24} iconColor="#9C27B0" style={styles.menuIcon} />
                 <Text style={styles.menuText}>Profilim</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity 
+                style={styles.menuItem}
+                onPress={() => {
+                  closeMenu();
+                  navigation.navigate('Premium');
+                }}
+              >
+                <IconButton icon="crown" size={24} iconColor="#FFD700" style={styles.menuIcon} />
+                <Text style={styles.menuText}>Premium</Text>
               </TouchableOpacity>
 
               <TouchableOpacity 
@@ -569,7 +579,7 @@ const styles = StyleSheet.create({
   },
   imageArea: {
     width: '100%',
-    height: '60%',
+    height: '70%',
     position: 'relative',
     marginBottom: 16,
     overflow: 'hidden',
@@ -758,8 +768,8 @@ const styles = StyleSheet.create({
   },
   changePhotoIcon: {
     position: 'absolute',
-    right: 15, // Sağa biraz daha kaydırıyoruz (10'dan 15'e)
-    top: 5, // Yukarıya alıyoruz (10'dan 5'e)
+    right: 2, // 4'ten 2'ye düşürüyoruz - daha sağa
+    top: 2,
     zIndex: 10,
   },
   iconButton: {
